@@ -6,20 +6,35 @@ function App() {
 		{ id: 2, text: "Comment 2" },
 		{ id: 3, text: "Comment 3" },
 	];
+
+	var loading = false;
+	var showComments = false;
+
+	const commentBlock = (
+		<div className="comments">
+			<h3>Comments ({comments.length})</h3>
+			<ul>
+				{comments.map((comment, index) => (
+					<li key={index}>{comment.text}</li>
+				))}
+			</ul>
+		</div>
+	);
+
+	const noCommentsBlock = (
+		<div>
+			<h3>No Comments Yet</h3>
+		</div>
+	);
+
+	if (loading) return <h1>Loading...</h1>;
+
 	return (
 		<div className="container">
 			<h1>{title.toUpperCase()}</h1>
 			<h2>{body}</h2>
 			<h2>{Math.random() * 5}</h2>
-
-			<div className="comments">
-				<h3>Comments ({comments.length})</h3>
-				<ul>
-					{comments.map((comment, index) => (
-						<li key={index}>{comment.text}</li>
-					))}
-				</ul>
-			</div>
+			{showComments ? commentBlock : noCommentsBlock}
 		</div>
 	);
 }
